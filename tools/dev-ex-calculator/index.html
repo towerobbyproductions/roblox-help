@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Primary Meta Tags -->
+    <title>DevEx Calculator - Convert Robux to USD | Roblox Developer Tools</title>
+    <meta name="title" content="DevEx Calculator - Convert Robux to USD | Roblox Developer Tools">
+    <meta name="description" content="Free DevEx calculator for Roblox developers. Convert Robux to USD, EUR, GBP and more with live exchange rates. Accurate DevEx conversion tool.">
+    <meta name="keywords" content="DevEx calculator, Robux to USD, Roblox DevEx, Robux converter, Roblox developer exchange">
+    <meta name="author" content="Roblox Help">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://roblox-help.duckdns.org/tools/dev-ex-calculator/">
+    <meta property="og:title" content="DevEx Calculator - Convert Robux to USD">
+    <meta property="og:description" content="Free DevEx calculator for Roblox developers">
+    <meta property="og:image" content="https://roblox-help.duckdns.org/assets/images/og-dex.jpg">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://roblox-help.duckdns.org/tools/dev-ex-calculator/">
+    
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/dark-mode.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="dark-mode">
+    <!-- Theme Toggle -->
+    <div class="theme-toggle-container">
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+            <i class="fas fa-sun"></i>
+            <i class="fas fa-moon"></i>
+        </button>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="/" class="logo">
+                    <span class="logo-text">Roblox<span class="highlight">Help</span></span>
+                </a>
+                <ul class="nav-menu">
+                    <li><a href="/" class="nav-link">Home</a></li>
+                    <li><a href="/#tools" class="nav-link">Tools</a></li>
+                    <li><a href="/#about" class="nav-link">About</a></li>
+                    <li><a href="/#contact" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Tool Header -->
+    <section class="tool-header">
+        <div class="container">
+            <div class="tool-header-content">
+                <h1 class="tool-title">DevEx Calculator</h1>
+                <p class="tool-subtitle">Convert Robux to real currency with live exchange rates</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calculator Section -->
+    <section class="calculator-section">
+        <div class="container">
+            <div class="calculator-card">
+                <div class="calculator-header">
+                    <i class="fas fa-calculator"></i>
+                    <h2>Robux to Currency Converter</h2>
+                </div>
+                
+                <div class="calculator-body">
+                    <div class="input-group">
+                        <label for="robux-amount">Robux Amount</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon">R$</span>
+                            <input type="number" id="robux-amount" class="calculator-input" placeholder="Enter Robux amount" min="0" step="100">
+                        </div>
+                    </div>
+
+                    <div class="rate-info">
+                        <div class="current-rate">
+                            <span class="rate-label">Current Rate:</span>
+                            <span class="rate-value">10,000 Robux = $35.00 USD</span>
+                        </div>
+                        <p class="rate-note">*Based on official DevEx rate. Subject to change.</p>
+                    </div>
+
+                    <div class="currency-selector">
+                        <label for="currency">Select Currency</label>
+                        <select id="currency" class="currency-select">
+                            <option value="USD">USD - US Dollar</option>
+                            <option value="EUR">EUR - Euro</option>
+                            <option value="GBP">GBP - British Pound</option>
+                            <option value="JPY">JPY - Japanese Yen</option>
+                            <option value="CAD">CAD - Canadian Dollar</option>
+                            <option value="AUD">AUD - Australian Dollar</option>
+                            <option value="CHF">CHF - Swiss Franc</option>
+                            <option value="CNY">CNY - Chinese Yuan</option>
+                            <option value="INR">INR - Indian Rupee</option>
+                            <option value="BRL">BRL - Brazilian Real</option>
+                        </select>
+                    </div>
+
+                    <div class="result-box">
+                        <div class="result-header">
+                            <span>Converted Amount</span>
+                            <span class="live-rate-badge">
+                                <i class="fas fa-sync-alt"></i> Live Rate
+                            </span>
+                        </div>
+                        <div class="result-amount">
+                            <span class="result-currency" id="result-currency">$</span>
+                            <span class="result-value" id="result-value">0.00</span>
+                        </div>
+                        <div class="result-details">
+                            <p id="robux-amount-display">0 Robux</p>
+                            <p id="rate-details">Rate: 10,000 Robux = $35.00 USD</p>
+                        </div>
+                    </div>
+
+                    <div class="calculator-actions">
+                        <button class="btn btn-secondary" id="reset-btn">
+                            <i class="fas fa-redo"></i> Reset
+                        </button>
+                        <button class="btn btn-primary" id="calculate-btn">
+                            <i class="fas fa-calculator"></i> Calculate
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Information Section -->
+            <div class="info-card">
+                <h3><i class="fas fa-info-circle"></i> About DevEx Calculator</h3>
+                <p>The Developer Exchange (DevEx) program allows Roblox developers to exchange their earned Robux for real money. The current rate is:</p>
+                <div class="rate-highlight">
+                    <p class="main-rate">10,000 Robux = $35.00 USD</p>
+                    <p class="sub-rate">(Rate: $0.0035 per Robux)</p>
+                </div>
+                <div class="requirements">
+                    <h4>DevEx Requirements:</h4>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> Minimum 30,000 Robux to cash out</li>
+                        <li><i class="fas fa-check-circle"></i> Must be 13+ years old</li>
+                        <li><i class="fas fa-check-circle"></i> Valid Roblox account in good standing</li>
+                        <li><i class="fas fa-check-circle"></i> Premium membership required</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="footer-title">Roblox Help</h3>
+                    <p class="footer-text">Essential tools for Roblox developers. Free, fast, and reliable.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-subtitle">Tools</h4>
+                    <ul class="footer-links">
+                        <li><a href="/tools/dev-ex-calculator/">DevEx Calculator</a></li>
+                        <li><a href="/tools/get-universal-id/">Universal ID Finder</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-subtitle">Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="/privacy">Privacy Policy</a></li>
+                        <li><a href="/terms">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-subtitle">Contact</h4>
+                    <ul class="footer-links">
+                        <li><a href="mailto:support@roblox-help.duckdns.org">support@roblox-help.duckdns.org</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Roblox Help. All rights reserved. Not affiliated with Roblox Corporation.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="/assets/js/theme.js"></script>
+    <script src="/assets/js/dev-ex-calculator.js"></script>
+</body>
+</html>
