@@ -39,3 +39,110 @@ button {
                 border-color 0.3s ease,
                 box-shadow 0.3s ease;
 }
+
+
+
+
+
+
+
+
+
+/* Enhanced Dark Mode Styles */
+body.dark-mode {
+    color-scheme: dark;
+}
+
+/* Custom Scrollbar for Dark Mode */
+body.dark-mode ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+body.dark-mode ::-webkit-scrollbar-track {
+    background: var(--dark-bg-secondary);
+    border-radius: var(--radius-full);
+}
+
+body.dark-mode ::-webkit-scrollbar-thumb {
+    background: var(--dark-border);
+    border-radius: var(--radius-full);
+    border: 2px solid var(--dark-bg-secondary);
+}
+
+body.dark-mode ::-webkit-scrollbar-thumb:hover {
+    background: var(--primary);
+}
+
+/* Selection Color for Dark Mode */
+body.dark-mode ::selection {
+    background: var(--primary);
+    color: white;
+}
+
+/* Focus Outline for Dark Mode */
+body.dark-mode :focus {
+    outline: 3px solid rgba(99, 102, 241, 0.3);
+    outline-offset: 2px;
+}
+
+/* Loading States */
+body.dark-mode .loading {
+    background: linear-gradient(90deg, var(--dark-card-bg) 25%, var(--dark-border) 50%, var(--dark-card-bg) 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* Glassmorphism Effects */
+body.dark-mode .glass {
+    background: rgba(26, 31, 38, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Neon Glow Effects */
+body.dark-mode .glow {
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        box-shadow: 0 0 10px -10px var(--primary);
+    }
+    to {
+        box-shadow: 0 0 20px 5px var(--primary);
+    }
+}
+
+/* Particle Effects */
+body.dark-mode .particle {
+    position: absolute;
+    background: var(--primary);
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0.5;
+    animation: float 20s infinite linear;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0) rotate(0deg);
+    }
+    100% {
+        transform: translateY(-100vh) rotate(360deg);
+    }
+}
+
+/* Smooth Transitions for All Elements */
+body.dark-mode * {
+    transition: background-color 0.3s ease,
+                border-color 0.3s ease,
+                box-shadow 0.3s ease,
+                transform 0.3s ease,
+                opacity 0.3s ease;
+}
