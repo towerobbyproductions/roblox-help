@@ -1,138 +1,254 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Exchange rates (base: USD)
-    const exchangeRates = {
-        'USD': 1.00,
-        'EUR': 0.92,
-        'GBP': 0.79,
-        'JPY': 151.50,
-        'CAD': 1.37,
-        'AUD': 1.52,
-        'CHF': 0.90,
-        'CNY': 7.24,
-        'INR': 83.50,
-        'BRL': 5.10
-    };
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    // DevEx rate: 10,000 Robux = $35 USD
-    const ROBUX_PER_USD = 10000 / 35; // Approximately 285.71 Robux per USD
-    const USD_PER_ROBUX = 35 / 10000; // $0.0035 per Robux
+    <!-- Primary Meta Tags -->
+    <title>Universal ID Finder - Get Roblox Universe ID | Roblox Developer Tools</title>
+    <meta name="title" content="Universal ID Finder - Get Roblox Universe ID | Roblox Developer Tools">
+    <meta name="description" content="Free tool to find Roblox Universe ID from Place ID. Uses official Roblox API. Essential for game developers and API integration.">
+    <meta name="keywords" content="Roblox Universe ID, Roblox Place ID, Roblox API, universe finder, Roblox game ID, developer tools">
+    <meta name="author" content="Roblox Help">
+    <meta name="robots" content="index, follow">
     
-    // DOM elements
-    const robuxInput = document.getElementById('robux-amount');
-    const currencySelect = document.getElementById('currency');
-    const resultValue = document.getElementById('result-value');
-    const resultCurrency = document.getElementById('result-currency');
-    const robuxAmountDisplay = document.getElementById('robux-amount-display');
-    const rateDetails = document.getElementById('rate-details');
-    const calculateBtn = document.getElementById('calculate-btn');
-    const resetBtn = document.getElementById('reset-btn');
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://roblox-help.duckdns.org/tools/get-universal-id/">
+    <meta property="og:title" content="Universal ID Finder - Get Roblox Universe ID">
+    <meta property="og:description" content="Free tool to find Roblox Universe ID from Place ID">
+    <meta property="og:image" content="https://roblox-help.duckdns.org/assets/images/og-universal.jpg">
     
-    // Currency symbols
-    const currencySymbols = {
-        'USD': '$',
-        'EUR': '€',
-        'GBP': '£',
-        'JPY': '¥',
-        'CAD': 'C$',
-        'AUD': 'A$',
-        'CHF': 'Fr',
-        'CNY': '¥',
-        'INR': '₹',
-        'BRL': 'R$'
-    };
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://roblox-help.duckdns.org/tools/get-universal-id/">
     
-    // Format number with commas
-    function formatNumber(number, decimals = 2) {
-        return number.toFixed(decimals).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-    }
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon-16x16.png">
     
-    // Calculate conversion
-    function calculateConversion() {
-        let robux = parseFloat(robuxInput.value);
-        
-        // Validate input
-        if (isNaN(robux) || robux < 0) {
-            robux = 0;
-            robuxInput.value = 0;
-        }
-        
-        // Calculate USD amount
-        const usdAmount = robux * USD_PER_ROBUX;
-        
-        // Get selected currency
-        const currency = currencySelect.value;
-        const rate = exchangeRates[currency];
-        
-        // Convert to selected currency
-        const convertedAmount = usdAmount * rate;
-        
-        // Update display
-        resultValue.textContent = formatNumber(convertedAmount);
-        resultCurrency.textContent = currencySymbols[currency] || '$';
-        robuxAmountDisplay.textContent = `${formatNumber(robux, 0)} Robux =`;
-        
-        // Update rate details
-        const rateInSelectedCurrency = USD_PER_ROBUX * rate;
-        rateDetails.textContent = `Rate: 1 Robux = ${currencySymbols[currency]}${rateInSelectedCurrency.toFixed(6)} ${currency}`;
-        
-        // Add animation
-        resultValue.style.animation = 'none';
-        resultValue.offsetHeight;
-        resultValue.style.animation = 'fadeInUp 0.5s ease';
-    }
+    <!-- CSS -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/dark-mode.css">
     
-    // Reset calculator
-    function resetCalculator() {
-        robuxInput.value = '';
-        currencySelect.value = 'USD';
-        resultValue.textContent = '0.00';
-        resultCurrency.textContent = '$';
-        robuxAmountDisplay.textContent = '0 Robux =';
-        rateDetails.textContent = 'Rate: 10,000 Robux = $35.00 USD';
-        
-        // Remove animation
-        resultValue.style.animation = 'none';
-    }
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-    // Event listeners
-    if (calculateBtn) {
-        calculateBtn.addEventListener('click', calculateConversion);
-    }
-    
-    if (resetBtn) {
-        resetBtn.addEventListener('click', resetCalculator);
-    }
-    
-    if (robuxInput) {
-        robuxInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                calculateConversion();
-            }
-        });
-    }
-    
-    if (currencySelect) {
-        currencySelect.addEventListener('change', function() {
-            if (robuxInput.value) {
-                calculateConversion();
-            }
-        });
-    }
-    
-    // Add input validation
-    if (robuxInput) {
-        robuxInput.addEventListener('input', function() {
-            let value = this.value.replace(/[^0-9]/g, '');
-            if (value === '') {
-                this.value = '';
-            } else {
-                this.value = parseInt(value, 10);
-            }
-        });
-    }
-    
-    // Initial calculation if there's a value
-    if (robuxInput && robuxInput.value) {
-        calculateConversion();
-    }
-});
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body class="dark-mode">
+    <!-- Theme Toggle -->
+    <div class="theme-toggle-container">
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
+            <i class="fas fa-sun"></i>
+            <i class="fas fa-moon"></i>
+        </button>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="/" class="logo">
+                    <span class="logo-text">Roblox<span class="highlight">Help</span></span>
+                </a>
+                <ul class="nav-menu">
+                    <li><a href="/" class="nav-link">Home</a></li>
+                    <li><a href="/#tools" class="nav-link">Tools</a></li>
+                    <li><a href="/#about" class="nav-link">About</a></li>
+                    <li><a href="/#contact" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Tool Header -->
+    <section class="tool-header">
+        <div class="container">
+            <div class="tool-header-content">
+                <h1 class="tool-title">Universal ID Finder</h1>
+                <p class="tool-subtitle">Get Universe ID from any Roblox Place ID using official API</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Finder Section -->
+    <section class="finder-section">
+        <div class="container">
+            <div class="finder-card">
+                <div class="finder-header">
+                    <i class="fas fa-search"></i>
+                    <h2>Find Universe ID</h2>
+                </div>
+                
+                <div class="finder-body">
+                    <div class="input-group">
+                        <label for="place-id">Place ID</label>
+                        <div class="input-wrapper">
+                            <span class="input-icon"><i class="fas fa-hashtag"></i></span>
+                            <input type="number" id="place-id" class="finder-input" placeholder="Enter Place ID (e.g., 71240146627158)" min="1">
+                        </div>
+                        <p class="input-hint">Enter the Place ID of any Roblox game</p>
+                    </div>
+
+                    <div class="api-endpoint">
+                        <p class="endpoint-label">API Endpoint:</p>
+                        <div class="endpoint-code">
+                            <code>https://apis.roblox.com/universes/v1/places/{placeId}/universe</code>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary btn-block" id="find-id-btn">
+                        <i class="fas fa-search"></i> Find Universe ID
+                    </button>
+
+                    <div class="result-section" id="result-section" style="display: none;">
+                        <div class="result-card">
+                            <div class="result-header">
+                                <h3><i class="fas fa-check-circle"></i> Result Found</h3>
+                                <button class="btn-icon" id="copy-result" title="Copy to clipboard">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                            <div class="result-content">
+                                <div class="result-item">
+                                    <span class="result-label">Place ID:</span>
+                                    <span class="result-value" id="result-place-id"></span>
+                                </div>
+                                <div class="result-item">
+                                    <span class="result-label">Universe ID:</span>
+                                    <span class="result-value universe-id" id="result-universe-id"></span>
+                                </div>
+                                <div class="result-item">
+                                    <span class="result-label">API URL:</span>
+                                    <div class="result-api-url" id="result-api-url"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="error-section" id="error-section" style="display: none;">
+                        <div class="error-card">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <h3>Error</h3>
+                            <p id="error-message"></p>
+                        </div>
+                    </div>
+
+                    <div class="loader" id="loader" style="display: none;">
+                        <div class="spinner"></div>
+                        <p>Fetching Universe ID...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Information Section -->
+            <div class="info-card">
+                <h3><i class="fas fa-info-circle"></i> About Universe ID</h3>
+                <p>The Universe ID is a unique identifier for a Roblox game that contains all places (levels) within that game. It's essential for:</p>
+                
+                <div class="info-grid">
+                    <div class="info-item">
+                        <i class="fas fa-database"></i>
+                        <h4>Data Storage</h4>
+                        <p>Access DataStores for your game</p>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-chart-line"></i>
+                        <h4>Analytics</h4>
+                        <p>Get game statistics and analytics</p>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-code-branch"></i>
+                        <h4>API Integration</h4>
+                        <p>Use with Roblox Open Cloud APIs</p>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-globe"></i>
+                        <h4>Cross-game</h4>
+                        <p>Link multiple places in one universe</p>
+                    </div>
+                </div>
+
+                <div class="api-docs">
+                    <h4>Official Roblox API:</h4>
+                    <div class="api-example">
+                        <p>GET <code>https://apis.roblox.com/universes/v1/places/71240146627158/universe</code></p>
+                    </div>
+                    <a href="https://create.roblox.com/docs/reference/cloud" target="_blank" rel="noopener" class="btn btn-secondary">
+                        <i class="fas fa-external-link-alt"></i> View API Documentation
+                    </a>
+                </div>
+            </div>
+
+            <!-- Examples Section -->
+            <div class="examples-section">
+                <h3>Popular Games</h3>
+                <div class="examples-grid">
+                    <div class="example-item" data-place-id="4483381587">
+                        <span class="game-name">Brookhaven 🏡</span>
+                        <span class="place-id">4483381587</span>
+                    </div>
+                    <div class="example-item" data-place-id="9825515356">
+                        <span class="game-name">Pet Simulator 99</span>
+                        <span class="place-id">9825515356</span>
+                    </div>
+                    <div class="example-item" data-place-id="920587237">
+                        <span class="game-name">Adopt Me!</span>
+                        <span class="place-id">920587237</span>
+                    </div>
+                    <div class="example-item" data-place-id="6872265039">
+                        <span class="game-name">Blox Fruits</span>
+                        <span class="place-id">6872265039</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="footer-title">Roblox Help</h3>
+                    <p class="footer-text">Essential tools for Roblox developers. Free, fast, and reliable.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-discord"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-subtitle">Tools</h4>
+                    <ul class="footer-links">
+                        <li><a href="/tools/dev-ex-calculator/">DevEx Calculator</a></li>
+                        <li><a href="/tools/get-universal-id/">Universal ID Finder</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-subtitle">Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="/privacy">Privacy Policy</a></li>
+                        <li><a href="/terms">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4 class="footer-subtitle">Contact</h4>
+                    <ul class="footer-links">
+                        <li><a href="mailto:support@roblox-help.duckdns.org">support@roblox-help.duckdns.org</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Roblox Help. All rights reserved. Not affiliated with Roblox Corporation.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="/assets/js/theme.js"></script>
+    <script src="/assets/js/universal-id.js"></script>
+</body>
+</html>
