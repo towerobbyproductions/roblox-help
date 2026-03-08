@@ -1,0 +1,5 @@
+# robots.txt for Roblox Help
+User-agent: *
+Allow: /
+
+Sitemap: https://roblox-help.duckdns.org/sitemap.xml
